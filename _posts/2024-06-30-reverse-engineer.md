@@ -30,7 +30,7 @@ stored in object files. <br>
 file, adding necessary information about the environment in which the
 program will run. <br>
 
-![Desktop View](/assets/posts/rev/image1.png){: width="972" height="589" }
+![Desktop View](/assets/posts/rev/image1.PNG){: width="972" height="589" }
 _Flow of the creation of the executable file_
 <br>During this process, some information, such as comments and certain labels
 are lost. Reverse engineering involves using knowledge and experience to
@@ -143,7 +143,7 @@ Static analysis is a fundamental reverse engineering technique that involves exa
 Ghidra should come pre-installed in your Kali Linux. If it is not installed, please follow this [link](https://github.com/NationalSecurityAgency/ghidra) and follow the steps to install it. <br><br>
 To run Ghidra, simply type `ghidra` on your `terminal`. After that, the application will show up.
 
-![Desktop View](/assets/posts/rev/image2.png){: width="972" height="589" }
+![Desktop View](/assets/posts/rev/image2.PNG){: width="972" height="589" }
 _Ghidra Project Window_
 
 To create a project and start to import `ELF` or `exe` files, follow the steps below: <br>
@@ -199,9 +199,9 @@ Now to `import` the files that you want to reverse, or in this case, the `hello`
 5. Double click on the file that you just uploaded
 6. Click on `Yes` to analyze the file
 
-![Desktop View](/assets/posts/rev/image3.png){: width="972" height="589" }
+![Desktop View](/assets/posts/rev/image3.PNG){: width="972" height="589" }
 
-![Desktop View](/assets/posts/rev/image4.png){: width="972" height="589" }
+![Desktop View](/assets/posts/rev/image4.PNG){: width="972" height="589" }
 
 The interface (CodeBrowser) shown is divided into multiple sections, each of which is explained below: <br>
 
@@ -220,20 +220,20 @@ TLDR:
 - Not stripped: program is `easier` to read and reverse
 - Stripped: program is `harder` to read and reverse
 
-![Desktop View](/assets/posts/rev/image6.png){: width="300" height="200" }
+![Desktop View](/assets/posts/rev/image6.PNG){: width="300" height="200" }
 _Not Stripped Symbol Tree_
-![Desktop View](/assets/posts/rev/image7.png){: width="300" height="300" }
+![Desktop View](/assets/posts/rev/image7.PNG){: width="300" height="300" }
 _Stripped Symbol Tree_
 
 <br>Anyway, back to reversing the program. As we can see, after pressing the `main` function in the `Symbol Tree`, the `Decompiler` shows us the `pseudo-code` for the program that we just wrote. 
 
-![Desktop View](/assets/posts/rev/image5.png){: width="972" height="589" }
+![Desktop View](/assets/posts/rev/image5.PNG){: width="972" height="589" }
 
 To make it even more readable, we can also `rename` some of the variables or functions that we know. We can do this by `clicking` a `variable` and type `l` on the keyboard to rename it whatever you like.
 
-![Desktop View](/assets/posts/rev/image8.png){: width="400" height="400" }
+![Desktop View](/assets/posts/rev/image8.PNG){: width="400" height="400" }
 _Renaming a variable or function_
-![Desktop View](/assets/posts/rev/image9.png){: width="400" height="400" }
+![Desktop View](/assets/posts/rev/image9.PNG){: width="400" height="400" }
 _After renaming the variables_
 
 As we can see, it is so much more readable and easier to understand the logic of the program now. Now we know that the user prompts the user to enter a `password`, then it `compares` the input with `s3cr3t_p@ss`. If the input is correct, it shows correct otherwise it shows wrong. We can also double-check the password by running the program and input `s3cr3t_p@ss`. <br>

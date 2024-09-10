@@ -86,12 +86,12 @@ Each of these blocks includes:
 
 A PNG file always begins with a specific sequence of bytes: `89 50 4E 47 0D 0A 1A 0A`, which helps identify it as a `PNG` file. The `IEND` block, which marks the file's end, is always `49 45 4E 44 AE 42 60 82`, and anything added after this block is usually ignored by standard image viewers. <br>
 
-![Desktop View](/assets/posts/forensic/image1.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image1.PNG){: width="972" height="589" }
 _PNG File Specification_
 
 One interesting feature of the PNG file structure is that you can `append` additional data after the IEND block without affecting how the image appears. For example, you can add the text `UTAR MY CHOICE` or even entire other files at the end of a PNG file. When you open the image in a viewer, it looks the same, but the extra data remains hidden. <br>
 
-![Desktop View](/assets/posts/forensic/image2.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image2.PNG){: width="972" height="589" }
 _Adding UTAR MY CHOICE at the end of the file_
 
 To `detect and extract` hidden files from an image, you can examine the file's binary data for specific headers and footers associated with different file types. Here are some `common file signatures` that will appear in CTF:
@@ -155,7 +155,7 @@ In a CTF challenge, memory forensics might involve:
 
 Once you downloaded the challenge file, `ALWAYS` perform `FILE CHECK first`. You can do this easily by typing `file <filename>` on your linux terminal to determine the file type. CTF challenge authors like to change the type of the file to lead you into a rabbit hole. Example shown below:
 
-![Desktop View](/assets/posts/forensic/image3.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image3.PNG){: width="972" height="589" }
 _Wrong File Type_
 
 As we can see, imagine the challenge file given to us is `utar.wav`. You would expect that it is a `wav` file, but there is no audio and you cannot open it on any audio software, hence you fall into a rabbit hole. But once we check the `file type`, we realized that it is actually a `PNG` image. So, we can fix it by typing `mv utar.wav utar.png` on your linux terminal.
@@ -174,10 +174,10 @@ strings -n 10 <filename>
 strings <filename> | grep "ctf"
 ```
 
-![Desktop View](/assets/posts/forensic/image4.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image4.PNG){: width="972" height="589" }
 _Strings output_
 
-![Desktop View](/assets/posts/forensic/image5.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image5.PNG){: width="972" height="589" }
 _Strings -n 10 output_
 
 Here, we can see the hidden data `UTAR MY CHOICE` using `strings` as opposed to using `hexedit` or `xxd` to check. In summary, it is a faster way to solve.
@@ -193,7 +193,7 @@ To use `exiftool`, type the following into the terminal:
 exiftool <filename>
 ```
 
-![Desktop View](/assets/posts/forensic/image10.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image10.PNG){: width="972" height="589" }
 _Image with interesting comment_
 
 #### <font color="#FFB2B2">Binwalk</font>
@@ -221,10 +221,10 @@ To scan a file using `binwalk` and it will `display any embedded files or data` 
 binwalk <filename>
 ```
 
-![Desktop View](/assets/posts/forensic/image6.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image6.PNG){: width="972" height="589" }
 _Normal Picture_
 
-![Desktop View](/assets/posts/forensic/image7.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image7.PNG){: width="972" height="589" }
 _Picture with hidden data inside_
 
 To extract hidden files using `binwalk`:
@@ -233,10 +233,10 @@ To extract hidden files using `binwalk`:
 binwalk -e <filename>
 ```
 
-![Desktop View](/assets/posts/forensic/image8.png){: width="500" height="500" }
+![Desktop View](/assets/posts/forensic/image8.PNG){: width="500" height="500" }
 _Extracting hidden files_
 
-![Desktop View](/assets/posts/forensic/image9.png){: width="500" height="500" }
+![Desktop View](/assets/posts/forensic/image9.PNG){: width="500" height="500" }
 _Output of the flag_
 
 #### <font color="#FFB2B2">hexedit / xxd</font>
@@ -249,7 +249,7 @@ It `does not matter` which one you use, pick one that you prefer. <br>
 
 For example, given a `PNG` image, but we are unable to view its content.
 
-![Desktop View](/assets/posts/forensic/image11.png){: width="500" height="500" }
+![Desktop View](/assets/posts/forensic/image11.PNG){: width="500" height="500" }
 _File error_
 
 To use `hexedit`, type the following:
@@ -257,12 +257,12 @@ To use `hexedit`, type the following:
 hexedit <filename>
 ```
 
-![Desktop View](/assets/posts/forensic/image12.png){: width="500" height="500" }
+![Desktop View](/assets/posts/forensic/image12.PNG){: width="500" height="500" }
 _PNG Signature error_
 
 As we know from understanding the basics of file structure, we can see that the signature is wrong. Change it to `89 50 4E 47 0D 0A 1A 0A` and press `Ctrl + X`, then `Y` to save it.
 
-![Desktop View](/assets/posts/forensic/image13.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image13.PNG){: width="500" height="400" }
 _After fixing the file_
 
 #### <font color="#FFB2B2">GIMP</font>
@@ -282,10 +282,10 @@ gimp <filename>
 
 Usually, use `GIMP` to solve challenges related `.xcf` file. The challenges might be an image and there are a lot of layers on the image and you need to remove the layers to solve the challenge. Example shown below:
 
-![Desktop View](/assets/posts/forensic/image14.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image14.PNG){: width="500" height="400" }
 _Normal image_
 
-![Desktop View](/assets/posts/forensic/image15.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image15.PNG){: width="500" height="400" }
 _After making hidden message visible_
 
 #### <font color="#FFB2B2">Steghide / Stegseek</font>
@@ -303,7 +303,7 @@ Do note that these tools only work for `JPG` image.
 
 Example usage:
 
-![Desktop View](/assets/posts/forensic/image16.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image16.PNG){: width="500" height="400" }
 
 If it asked for a `passphrase`, try to press `Enter` on your keyboard to see whether the author got use the passphrase on the image or not. If a passphrase is `required`, you may try to use `stegseek` with `rockyou.txt` to solve it. Otherwise, you need to look at other places in the challenge to get the passphrase.
 
@@ -335,7 +335,7 @@ zsteg <filename>
 zsteg <filename> -E b1,rgb,lsb,xy > <output_filename>
 ```
 
-![Desktop View](/assets/posts/forensic/image17.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image17.PNG){: width="500" height="400" }
 
 #### <font color="#FFB2B2">Stegsolve</font>
 In case you have not install it:
@@ -357,21 +357,21 @@ java -jar stegsolve.jar
 
 Firstly, load the image that you want to analyze into the application. Next, click on `Analyze` and then `Data Extract` to explore about its functionality.
 
-![Desktop View](/assets/posts/forensic/image18.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image18.PNG){: width="500" height="400" }
 
-![Desktop View](/assets/posts/forensic/image19.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image19.PNG){: width="500" height="400" }
 
 As we can see from the image above, we can see the extracted data. Lets look at another example, and this challenge is taken from `JellyCTF`.
 
-1) [Image1](/assets/posts/forensic/jelly1.png) (click on the link to view the image)
+1) [Image1](/assets/posts/forensic/jelly1.PNG) (click on the link to view the image)
 
-2) [Image2](/assets/posts/forensic/jelly2.png) (click on the link to view the image)
+2) [Image2](/assets/posts/forensic/jelly2.PNG) (click on the link to view the image)
 
 As mentioned previously, `stegsolve` allows us to perform `XOR` operations between images by utilizing the `image combiner` function. So, we combine `Image1` and `Image2` to see the hidden data.
 
-![Desktop View](/assets/posts/forensic/image20.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image20.PNG){: width="500" height="400" }
 
-![Desktop View](/assets/posts/forensic/image21.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image21.PNG){: width="500" height="400" }
 
 As we can see, the hidden data is `jellyCTF{tw0_h41v3s_m4k3_a_wh0L3}`.
 
@@ -394,7 +394,7 @@ stegsnow -C <filename>
 
 Provided a `suspicious` text file, we can see that it is quite `normal`, but there are `extra lines` in the text file. So, we utilize `stegsnow` to decode the message.
 
-![Desktop View](/assets/posts/forensic/image22.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image22.PNG){: width="500" height="400" }
 _Decoded message_
 
 ### <font color="#A5C9FF">2. Disk Image Analysis</font>
@@ -411,19 +411,19 @@ Let's try to use this tool to solve one of the challenges from `PicoCTF` named `
 
 Open `FTK Imager`, go to `File` then `Add Evidence Item`.
 
-![Desktop View](/assets/posts/forensic/image23.png){: width="500" height="200" }
+![Desktop View](/assets/posts/forensic/image23.PNG){: width="500" height="200" }
 
 After that, select an appropriate source. Usually for CTF, it will be `image file`.
 
-![Desktop View](/assets/posts/forensic/image24.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image24.PNG){: width="500" height="400" }
 
 Select the file that you want to analyze.
 
-![Desktop View](/assets/posts/forensic/image25.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image25.PNG){: width="500" height="400" }
 
 Once loaded, you can browse the file system, view files and inspect the metadata by navigating through the file structure within FTK Imager to find `suspicious` files or directories.
 
-![Desktop View](/assets/posts/forensic/image26.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image26.PNG){: width="972" height="589" }
 
 In this example, the suspicious file that will give the flag is `suspicious-file.txt.FileSlack`. It shows `}61d907ec_3<_|Lm_111t5_3b{FTCocip` but if you reverse it, it shows the true flag which is `picoCTF{b3_5t111_mL|_<3_ce709d16}`.
 
@@ -486,13 +486,13 @@ Finally, the most common one is `Spectrogram Analysis`. A spectrogram displays t
 Here is an example challenge from `riftCTF`:
 
 Load the `audio` file to Sonic-Visualiser. When you play the sound, nothing sounds suspicious.
-![Desktop View](/assets/posts/forensic/image27.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image27.PNG){: width="972" height="589" }
 
 Next, we apply `Spectrogram` onto the audio waves.
-![Desktop View](/assets/posts/forensic/image28.png){: width="972" height="589" }
+![Desktop View](/assets/posts/forensic/image28.PNG){: width="972" height="589" }
 
 Now we can see the hidden message in the waves. Zoom in and read the message.
-![Desktop View](/assets/posts/forensic/image29.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image29.PNG){: width="500" height="400" }
 
 ### <font color="#A5C9FF">5. VBA Macros </font>
 #### <font color="#FFB2B2">Oletools</font>
@@ -516,7 +516,7 @@ Example of the tool usage:
 olevba <filename>
 ```
 
-![Desktop View](/assets/posts/forensic/image30.png){: width="500" height="400" }
+![Desktop View](/assets/posts/forensic/image30.PNG){: width="500" height="400" }
 
 Based on the image above, we can see the `secret code` in the word document.
 
